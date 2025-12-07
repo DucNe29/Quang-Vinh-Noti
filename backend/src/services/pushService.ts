@@ -2,8 +2,9 @@ import webpush from 'web-push'
 import { PushSubscription, PushNotificationPayload } from '../types/push'
 
 // Khởi tạo VAPID keys từ environment variables
-const vapidPublicKey = process.env.VAPID_PUBLIC_KEY
-const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY
+const vapidPublicKey =
+  'BMFxcjSd4SsaO12aORIUC-yryEpM7jMQhz8Mb_WBfiPLTYzxUddLdxk2kQjoQY1-zMF2r8KuKwBYhsnQ2ZUL51s'
+const vapidPrivateKey = 'ZNA8dOEoZZG5Y15bLCcfRYwR35ct8rcwz6Jfv90N_pI'
 const vapidSubject = process.env.VAPID_SUBJECT || 'mailto:admin@yourdomain.com'
 
 if (!vapidPublicKey || !vapidPrivateKey) {
@@ -37,7 +38,7 @@ export async function sendPushNotification(
     console.log('✅ Push notification đã được gửi thành công')
   } catch (error: any) {
     console.error('❌ Lỗi khi gửi push notification:', error)
-    
+
     // Xử lý các lỗi phổ biến
     if (error.statusCode === 410) {
       // Subscription đã hết hạn hoặc không hợp lệ
@@ -67,4 +68,3 @@ export async function sendPushNotificationToMany(
 
   return { success, failed }
 }
-
