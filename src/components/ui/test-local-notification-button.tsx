@@ -37,6 +37,7 @@ export function TestLocalNotificationButton() {
   const showTestNotification = async () => {
     setIsLoading(true)
     try {
+      console.log('23123', 231)
       if (!('Notification' in window)) {
         toast.error('Trình duyệt không hỗ trợ Notification API')
         return
@@ -92,12 +93,7 @@ export function TestLocalNotificationButton() {
   // Nếu chưa có permission, hiển thị button xin quyền
   if (permission === 'default') {
     return (
-      <Button
-        onClick={requestPermission}
-        variant="outline"
-        className="gap-2"
-        size="sm"
-      >
+      <Button onClick={requestPermission} variant="outline" className="gap-2" size="sm">
         <Bell className="h-4 w-4" />
         Cho phép thông báo
       </Button>
@@ -143,4 +139,3 @@ export function TestLocalNotificationButton() {
     </Button>
   )
 }
-
