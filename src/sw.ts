@@ -10,11 +10,27 @@ declare const self: ServiceWorkerGlobalScope & {
 // Workbox sẽ tự inject danh sách asset vào self.__WB_MANIFEST khi build
 precacheAndRoute(self.__WB_MANIFEST || [])
 
+async function postLog(message: string, payload?: Record<string, unknown>) {
+  try {
+    const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+    clients.forEach((client) => {
+      client.postMessage({
+        source: 'sw-log',
+        message,
+        payload,
+      })
+    })
+  } catch (err) {
+    console.error('[SW] postLog failed', err)
+  }
+}
+
 // Lắng nghe sự kiện push từ server
 self.addEventListener('push', (event) => {
   console.log('[SW] push event nhận được', { hasData: Boolean(event.data) })
   if (!event.data) {
     console.warn('[SW] push event không có data')
+    postLog('[SW] push event không có data')
     return
   }
 
@@ -23,6 +39,7 @@ self.addEventListener('push', (event) => {
     data = event.data.json ? event.data.json() : { title: 'Notification', body: event.data.text() }
   } catch (err) {
     console.error('[SW] lỗi parse push data', err)
+    postLog('[SW] lỗi parse push data', { error: String(err) })
     data = { title: 'Notification', body: event.data && event.data.text() }
   }
 
@@ -35,6 +52,7 @@ self.addEventListener('push', (event) => {
   }
 
   console.log('[SW] hiển thị notification', { title, options })
+  postLog('[SW] hiển thị notification', { title, options })
   event.waitUntil(self.registration.showNotification(title, options))
 })
 
@@ -44,6 +62,7 @@ self.addEventListener('notificationclick', (event) => {
   const url = (event.notification.data && event.notification.data.url) || '/'
 
   console.log('[SW] notification click', { url })
+  postLog('[SW] notification click', { url })
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
