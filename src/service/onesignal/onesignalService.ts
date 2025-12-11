@@ -2,6 +2,11 @@ type OneSignalInitOptions = {
   appId: string
   allowLocalhostAsSecureOrigin?: boolean
   safariWebId?: string
+  serviceWorker?: {
+    path?: string
+    scope?: string
+    useExistingServiceWorker?: boolean
+  }
 }
 
 type OneSignalSDK = {
@@ -76,6 +81,11 @@ export async function initOneSignal() {
         appId,
         safariWebId: import.meta.env.VITE_ONESIGNAL_SAFARI_WEB_ID,
         allowLocalhostAsSecureOrigin: Boolean(import.meta.env.DEV),
+        serviceWorker: {
+          path: '/sw.js',
+          scope: '/',
+          useExistingServiceWorker: true,
+        },
       })
       initialized = true
     }

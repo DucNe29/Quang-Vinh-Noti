@@ -11,12 +11,8 @@
     <meta name="apple-mobile-web-app-title" content="Quang Vinh Mobile" />
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
+      // Khởi tạo mảng deferred cho OneSignal SDK, init sẽ được gọi trong mã nguồn (onesignalService)
       window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({
-          appId: "3b850dff-b706-4ee4-95d2-62bf2a800cb2",
-        });
-      });
     </script>
     <title>Quang Vinh Mobile</title>
   </head>
