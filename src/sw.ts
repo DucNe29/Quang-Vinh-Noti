@@ -12,13 +12,19 @@ precacheAndRoute(self.__WB_MANIFEST || [])
 
 // Lắng nghe sự kiện push từ server
 self.addEventListener('push', (event) => {
+  console.log('[SW] push event nhận được', { hasData: Boolean(event.data) })
   if (!event.data) {
+    console.warn('[SW] push event không có data')
     return
   }
 
-  const data = event.data.json
-    ? event.data.json()
-    : { title: 'Notification', body: event.data.text() }
+  let data: any
+  try {
+    data = event.data.json ? event.data.json() : { title: 'Notification', body: event.data.text() }
+  } catch (err) {
+    console.error('[SW] lỗi parse push data', err)
+    data = { title: 'Notification', body: event.data && event.data.text() }
+  }
 
   const title = data.title || 'Thông báo mới'
   const options: NotificationOptions = {
@@ -28,6 +34,7 @@ self.addEventListener('push', (event) => {
     data: data.data || {},
   }
 
+  console.log('[SW] hiển thị notification', { title, options })
   event.waitUntil(self.registration.showNotification(title, options))
 })
 
@@ -36,6 +43,7 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close()
   const url = (event.notification.data && event.notification.data.url) || '/'
 
+  console.log('[SW] notification click', { url })
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
