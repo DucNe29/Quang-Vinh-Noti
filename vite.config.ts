@@ -27,6 +27,28 @@ export default defineConfig(({ mode }) => {
           display: 'standalone',
           background_color: '#ffffff',
           start_url: '/',
+          icons: [
+            {
+              src: '/QuangVinhIconApp192.png',
+              sizes: '192x192',
+              type: 'image/png',
+            },
+            {
+              src: '/QuangVinhIconApp256.png',
+              sizes: '256x256',
+              type: 'image/png',
+            },
+            {
+              src: '/QuangVinhIconApp384.png',
+              sizes: '384x384',
+              type: 'image/png',
+            },
+            {
+              src: '/QuangVinhIconApp512.png',
+              sizes: '512x512',
+              type: 'image/png',
+            },
+          ],
         },
       }),
     ],

@@ -7,10 +7,10 @@
   "theme_color": "#E54B4D",
   "background_color": "#ffffff",
   "icons": [
-    { "src": "src/assets/icon/QuangVinhIconApp192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "src/assets/icon/QuangVinhIconApp256.png", "sizes": "256x256", "type": "image/png" },
-    { "src": "src/assets/icon/QuangVinhIconApp384.png", "sizes": "384x384", "type": "image/png" },
-    { "src": "src/assets/icon/QuangVinhIconApp512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/QuangVinhIconApp192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/QuangVinhIconApp256.png", "sizes": "256x256", "type": "image/png" },
+    { "src": "/QuangVinhIconApp384.png", "sizes": "384x384", "type": "image/png" },
+    { "src": "/QuangVinhIconApp512.png", "sizes": "512x512", "type": "image/png" }
   ],
   "id": "?homescreen=1"
 }
